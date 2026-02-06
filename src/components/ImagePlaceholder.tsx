@@ -6,15 +6,9 @@ const ImagePlaceholder = ({ aspectRatio }: { aspectRatio: string }) => (
       background:
         'linear-gradient(90deg, var(--skeleton-color) 25%, var(--skeleton-highlight) 50%, var(--skeleton-color) 75%)',
       backgroundSize: '200% 100%',
-      animation: 'shine 1.5s infinite',
     }}
   >
     <style>{`
-      @keyframes shine {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-      }
-      
       /* 亮色模式变量 */
       :root {
         --skeleton-color: #f0f0f0;

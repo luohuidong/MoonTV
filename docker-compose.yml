@@ -1,0 +1,37 @@
+services:
+  moontv-core:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    image: moontv:latest
+    container_name: moontv
+    environment:
+      - USERNAME=admin
+      - PASSWORD=password
+      - NEXT_PUBLIC_STORAGE_TYPE=redis
+      - REDIS_URL=redis://moontv-redis:6379
+      - NEXT_PUBLIC_ENABLE_REGISTER=true
+    ports:
+      - '3000:3000'
+    depends_on:
+      - moontv-redis
+    restart: unless-stopped
+    networks:
+      - moontv-network
+
+  moontv-redis:
+    image: redis:8.4
+    container_name: moontv-redis
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    networks:
+      - moontv-network
+
+volumes:
+  redis-data:
+
+networks:
+  moontv-network:
+    driver: bridge
